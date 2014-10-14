@@ -35,7 +35,6 @@
     "grunt-docco2": "^0.2.0",
     "grunt-jasmine-node": "^0.2.1",
     "grunt-shell": "^1.1.1",
-    "grunt-strip-code": "^0.1.2",
     "grunt-todos": "^0.3.0",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^0.6.0",
