@@ -60,7 +60,7 @@ Using the options from our example above, if a user entered `cli-app-name exampl
 
 ```
 example({whatever: true, something: 'some'}, ['other', 'stuff', 'here']);
-``
+```
 
 This means that by convention your CLI application should be structured in such a way that each command maps to a function that takes an object and an array as arguments like this:
 
