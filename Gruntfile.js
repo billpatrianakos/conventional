@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
 
-  //require('load-grunt-tasks')(grunt);
-  require('load-grunt-tasks')(grunt, {
-    pattern: ['grunt-*', '!grunt-template-jasmine-requirejs']
-  });
+  require('load-grunt-tasks')(grunt);
+  // require('load-grunt-tasks')(grunt, {
+  //   pattern: ['grunt-*', '!grunt-template-jasmine-requirejs']
+  // });
   require('time-grunt')(grunt);
 
   grunt.initConfig({
@@ -11,18 +11,22 @@ module.exports = function(grunt) {
     app: {
       dev: 'src',
       dist: 'dist',
-      test: 'test',
+      test: 'spec',
+      doc: 'docs',
       buildNo: '<%= pkg.version %>' + '-' + grunt.template.today("yyyymmddHHMM"),
       codeName: 'Evil',
       copyYear: '2014'
     },
 
-    // Run a server to inspect tests
+    // Run a server to view docs
     connect: {
       server: {
         options: {
           port: 8000,
-          hostname: '*',
+          hostname: 'localhost',
+          base: '<%= app.doc %>',
+          keepalive: true,
+          open: true
         }
       }
     },
@@ -64,7 +68,8 @@ module.exports = function(grunt) {
 
     // Clean dist before every build
     clean: {
-      dist: ['<%= app.dist %>']
+      dist: ['<%= app.dist %>'],
+      test: ['<%= app.test %>']
     },
 
     // Todos
@@ -94,24 +99,22 @@ module.exports = function(grunt) {
       }
     },
 
-    // Run the tests
-    jasmine: {
-      dist: {
-        src: '<%= app.dist %>/**/*.js',
-        options: {
-          specs: '<%= app.test %>/*Spec.js',
-          helpers: '<%= app.test %>/*Helper.js',
-          template: require('grunt-template-jasmine-requirejs')
+    // jasmine-node test runner
+    jasmine_node: {
+      options: {
+        forceExit: true,
+        match: '.',
+        matchall: false,
+        extensions: 'js',
+        specNameMatcher: 'spec',
+        jUnit: {
+          report: true,
+          savePath : "./build/reports/jasmine/",
+          useDotNotation: true,
+          consolidate: true
         }
       },
-      dev: {
-        src: '<%= app.dev %>/**/*.js',
-        options: {
-          specs: '<%= app.test %>/*Spec.js',
-          helpers: '<%= app.test %>/*Helper.js',
-          template: require('grunt-template-jasmine-requirejs')
-        }
-      }
+      all: ['spec/']
     },
 
     // Run shell commands
@@ -125,6 +128,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-docco2'); // load-npm-tasks does not pick this up automatically
 
   grunt.registerTask('default', ['develop']);
+  grunt.registerTask('develop', ['watch']);
 
   grunt.registerTask('build', [
     'jshint',
@@ -134,10 +138,14 @@ module.exports = function(grunt) {
     'shell:link'
     ]);
 
-  grunt.registerTask('codeQuality', ['todos:scan']);
-
-  grunt.registerTask('develop', [
-    'watch'
+  grunt.registerTask('document', [
+    'docco:docs',
+    'connect:server'
     ]);
 
+  grunt.registerTask('test', [
+    'clean:test',
+    'todos:scan',
+    'jasmine_node'
+    ]);
 };

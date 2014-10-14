@@ -1,5 +1,7 @@
 src/
 test/
+spec/
+build/
 docs/
 
 Gruntfile.js
@@ -8,3 +10,5 @@ Gruntfile.js
 .npmignore
 .gitignore
 .travis.yml
+
+_SpecRunner.html

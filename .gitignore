@@ -10,6 +10,14 @@ node_modules
 # be creating identical builds from
 # the source files instead.
 dist/
+build/
+
+# Ignore generated files. Things like
+# test frameworks and build tools create
+# a bunch of stuff that doesn't need to
+# be tracked as it can be reproduced
+# with a simple command or two.
+_SpecRunner.html
 
 # We do not enforce an environment
 # so we ignore env files
