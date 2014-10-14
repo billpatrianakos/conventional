@@ -1,0 +1,16 @@
+# Conventional ignores
+#
+# Files you don't need to track
+# to develop and/or use this tool
+
+# Ignore dependencies
+node_modules
+
+# Ignore built files. You should
+# be creating identical builds from
+# the source files instead.
+dist/
+
+# We do not enforce an environment
+# so we ignore env files
+.nvmrc

@@ -1,0 +1,31 @@
+# Conventional editorconfig
+#
+# This file helps us maintain consistent
+# code styles throughout the project. Make
+# sure your editor supports editorconfig or
+# be very mindful of style.
+#
+# Learn more at http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# 2-space indent (because the hipsters ignore Crockford)
+[*.js]
+indent_style = space
+indent_size = 2
+
+# Matches the exact files either package.json or .travis.yml
+[.travis.yml]
+indent_style = space
+indent_size = 2
+
+# For documentation - 4 space indent
+[*.md]
+indent_style = space
+indent_size = 4

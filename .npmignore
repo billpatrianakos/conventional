@@ -1,0 +1,10 @@
+src/
+test/
+docs/
+
+Gruntfile.js
+
+.editorconfig
+.npmignore
+.gitignore
+.travis.yml

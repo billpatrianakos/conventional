@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Conventional option parser</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="conventional-option-parser">Conventional option parser</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Quick and easy option parsing for Node apps
+following convention over configuration</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> _     = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+<span class="hljs-keyword">var</span> chalk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chalk'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Console theme (alias to console.log() using Chalk for formatting)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> say = {
+  message: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(message)</span> </span>{
+    <span class="hljs-built_in">console</span>.log(message);
+  },
+  error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(message)</span> </span>{
+    <span class="hljs-built_in">console</span>.warn(chalk.bold.red(message));
+  },
+  success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(message)</span> </span>{
+    <span class="hljs-built_in">console</span>.log(chalk.green(message));
+  },
+  note: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(message)</span> </span>{
+    <span class="hljs-built_in">console</span>.log(chalk.dim(message));
+  },
+  important: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(message)</span> </span>{
+    <span class="hljs-built_in">console</span>.log(chalk.bgRed.black.bold(message));
+  }
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Main module</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(opt, functions)</span> </span>{
+
+  <span class="hljs-keyword">var</span> userInput = process.argv.slice(<span class="hljs-number">2</span>);
+  <span class="hljs-keyword">var</span> command   = userInput[<span class="hljs-number">0</span>];
+  <span class="hljs-keyword">var</span> remaining = userInput.slice(<span class="hljs-number">1</span>);
+
+  <span class="hljs-keyword">var</span> validCommands = [];
+  <span class="hljs-keyword">var</span> validFlags    = [];
+  <span class="hljs-keyword">var</span> requiredFlags = [];
+
+  <span class="hljs-keyword">var</span> passedValues  = {};
+  <span class="hljs-keyword">var</span> params        = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Determine whether to parse as a command:flags command
+or a standalone app with only flags</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (opt.commands[<span class="hljs-string">'_'</span>]) { <span class="hljs-comment">// jshint ignore:line</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Parse everything as flags only</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Generate list of valid commands and flags</p>
+<p>Begin with commands…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> commandName <span class="hljs-keyword">in</span> opt.commands) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>TODO: Sanitize the input here</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      validCommands.push(commandName);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Ensure a valid command was entered</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (_.contains(validCommands, command)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>…then parse command list for associated flags</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> flag <span class="hljs-keyword">in</span> opt.commands[command].flags) {
+        validFlags.push(flag);
+        opt.commands[command].flags[flag].required &amp;&amp; requiredFlags.push(flag); <span class="hljs-comment">// jshint ignore:line</span>
+      }
+    } <span class="hljs-keyword">else</span> {
+      say.error(<span class="hljs-string">'Error: "'</span> + command +<span class="hljs-string">'" is not a valid command'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>TODO: Implement function to dynamically display help from options object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      process.exit(<span class="hljs-number">1</span>);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Validate required flags</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> unmetRequirements = _.difference(requiredFlags, remaining);
+    <span class="hljs-keyword">if</span> (unmetRequirements.length &gt; <span class="hljs-number">0</span>) {
+      say.error(<span class="hljs-string">'Required flags missing: '</span> + unmetRequirements.join(<span class="hljs-string">', '</span>));
+      process.exit(<span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * Passed values
+     * =============
+     *
+     * Example of the structure of
+     * the passedValues object.
+     *
+     *     var passed = {
+     *       flag: value
+     *     }
+     *
+     * We create an object which gets
+     * passed to the called function
+     */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Grab all the remaining flags and their values</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = remaining.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Run validation on matched flags</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (_.contains(validFlags, remaining[i])) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Check its type</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">switch</span>(opt.commands[command].flags[remaining[i]].type) {
+          <span class="hljs-keyword">case</span> <span class="hljs-built_in">Boolean</span>:
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].value : parseBoolean(remaining[i + <span class="hljs-number">1</span>]);
+            !_.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) &amp;&amp; remaining.splice((i + <span class="hljs-number">1</span>), <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">break</span>;
+          <span class="hljs-keyword">case</span> <span class="hljs-built_in">String</span>:
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].value : remaining[i + <span class="hljs-number">1</span>];
+            <span class="hljs-keyword">if</span> (!_.contains(validFlags, remaining[i + <span class="hljs-number">1</span>])) remaining.splice((i + <span class="hljs-number">1</span>), <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">break</span>;
+          <span class="hljs-keyword">case</span> <span class="hljs-built_in">Number</span>:
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].value : <span class="hljs-built_in">parseInt</span>(remaining[i + <span class="hljs-number">1</span>]);
+            <span class="hljs-keyword">if</span> (!_.contains(validFlags, remaining[i + <span class="hljs-number">1</span>])) remaining.splice((i + <span class="hljs-number">1</span>), <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">break</span>;
+          <span class="hljs-keyword">case</span> <span class="hljs-built_in">Array</span>:
+            <span class="hljs-keyword">var</span> rest = _.rest(remaining, (i + <span class="hljs-number">1</span>));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Loop over the rest, stop at the next flag</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; rest.length; j++) {
+              <span class="hljs-keyword">if</span> (_.contains(validFlags, rest[j])) {
+                <span class="hljs-keyword">break</span>;
+              } <span class="hljs-keyword">else</span> {
+                passedValues[remaining[i]].push(rest[j]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Remove  each of these values before moving on or increment <code>i</code>?</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (!_.contains(validFlags, rest[j + <span class="hljs-number">1</span>])) remaining.splice((i + <span class="hljs-number">1</span>), <span class="hljs-number">1</span>);
+              }
+            }
+            <span class="hljs-keyword">break</span>;
+          <span class="hljs-keyword">default</span>:
+            say.important(<span class="hljs-string">'Invalid flag type set: '</span> + remaining[i]);
+            process.exit(<span class="hljs-number">1</span>);
+        }
+      } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// Store any input not belonging to a flag</span>
+        params.push(remaining[i]);
+      }
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Invoke the command as a function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-built_in">eval</span>(<span class="hljs-string">'functions.'</span> + command)(passedValues, params); <span class="hljs-comment">// jshint ignore:line</span>
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>parseBoolean</p>
+<p>Takes ‘true’/‘false’ as a string and returns
+its value as if it were a boolean</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parseBoolean</span><span class="hljs-params">(str)</span> </span>{
+  <span class="hljs-keyword">return</span> (<span class="hljs-string">'true'</span> === str.toLowerCase() || <span class="hljs-string">'t'</span> === str.toLowerCase());
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
