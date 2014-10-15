@@ -1,4 +1,4 @@
-# Conventional Option Parser
+# Conventional Option Parser [![Build Status](https://travis-ci.org/billpatrianakos/conventional.svg)](https://travis-ci.org/billpatrianakos/conventional)
 
 > Parse options in Node CLI utilities using a convention over configuration approach
 
