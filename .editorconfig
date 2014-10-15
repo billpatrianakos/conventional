@@ -23,7 +23,7 @@ indent_size = 2
 # Matches the exact files either package.json or .travis.yml
 [.travis.yml]
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 # For documentation - 4 space indent
 [*.md]
