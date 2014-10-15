@@ -69,7 +69,7 @@ module.exports = function(grunt) {
     // Clean dist before every build
     clean: {
       dist: ['<%= app.dist %>'],
-      test: ['<%= app.test %>']
+      test: ['build']
     },
 
     // Todos
