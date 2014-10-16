@@ -131,7 +131,7 @@ module.exports = function(opt, functions) {
   }
 
   // Invoke the command as a function
-  eval('functions.' + command)(passedValues, params); // jshint ignore:line
+  eval('functions.' + command)(opt, passedValues, params); // jshint ignore:line
 };
 
 // parseBoolean
