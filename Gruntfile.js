@@ -125,7 +125,7 @@ module.exports = function(grunt) {
         command: [
           'git add .',
           'git commit -m "<%= app.defaultCommitMsg %>"'
-        ].join('&&')
+        ].join('&&') 
       },
       release: {
         command: 'grunt release:<%= app.releaseType %>'
