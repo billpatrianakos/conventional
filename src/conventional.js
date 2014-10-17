@@ -45,6 +45,7 @@ module.exports = function(opt, functions) {
   // or a standalone app with only flags
   if (opt.commands['_']) { // jshint ignore:line
     // Parse everything as flags only
+    // TODO: Implement flag-only parsing
   } else {
     // Generate list of valid commands and flags
     //
@@ -74,23 +75,21 @@ module.exports = function(opt, functions) {
       process.exit(1);
     }
 
-    /**
-     * Passed values
-     * =============
-     *
-     * Example of the structure of
-     * the passedValues object.
-     *
-     *     var passed = {
-     *       flag: value
-     *     }
-     *
-     * We create an object which gets
-     * passed to the called function
-     */
-
+    // Passed values
+    // =============
+    //
+    // Example of the structure of
+    // the passedValues object.
+    //
+    //     var passed = {
+    //       flag: value
+    //     }
+    //
+    // We create an object which gets
+    // passed to the called function
+    //
     // Grab all the remaining flags and their values
-    for (var i = remaining.length - 1; i >= 0; i--) {
+    for (var i = 0; i < remaining.length; i++) {
       // Run validation on matched flags
       if (_.contains(validFlags, remaining[i])) {
         // Check its type
