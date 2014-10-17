@@ -1,6 +1,6 @@
 {
   "name": "conventional",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A command line option parser following convention over configuration.",
   "main": "dist/conventional.js",
   "scripts": {
