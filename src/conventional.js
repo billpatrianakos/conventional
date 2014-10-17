@@ -96,15 +96,15 @@ module.exports = function(opt, functions) {
         // Check its type
         switch(opt.commands[command].flags[remaining[i]].type) {
           case Boolean:
-            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + 1]) ? opt.commands[command].flags[remaining[i]].value : parseBoolean(remaining[i + 1]);
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + 1]) ? opt.commands[command].flags[remaining[i]].val : parseBoolean(remaining[i + 1]);
             !_.contains(validFlags, remaining[i + 1]) && remaining.splice((i + 1), 1);
             break;
           case String:
-            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + 1]) ? opt.commands[command].flags[remaining[i]].value : remaining[i + 1];
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + 1]) ? opt.commands[command].flags[remaining[i]].val : remaining[i + 1];
             if (!_.contains(validFlags, remaining[i + 1])) remaining.splice((i + 1), 1);
             break;
           case Number:
-            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + 1]) ? opt.commands[command].flags[remaining[i]].value : parseInt(remaining[i + 1]);
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + 1]) ? opt.commands[command].flags[remaining[i]].val : parseInt(remaining[i + 1]);
             if (!_.contains(validFlags, remaining[i + 1])) remaining.splice((i + 1), 1);
             break;
           case Array:

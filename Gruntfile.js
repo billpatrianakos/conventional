@@ -1,9 +1,6 @@
 module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
-  // require('load-grunt-tasks')(grunt, {
-  //   pattern: ['grunt-*', '!grunt-template-jasmine-requirejs']
-  // });
   require('time-grunt')(grunt);
 
   grunt.initConfig({
@@ -15,7 +12,9 @@ module.exports = function(grunt) {
       doc: 'docs',
       buildNo: '<%= pkg.version %>' + '-' + grunt.template.today("yyyymmddHHMM"),
       codeName: 'Evil',
-      copyYear: '2014'
+      copyYear: '2014',
+      releaseType: grunt.option('release-type') || 'patch',
+      defaultCommitMsg: grunt.option('message') || 'Releasing a new version, forgot to customize my commit message. Shame on me.'
     },
 
     // Run a server to view docs
@@ -121,6 +120,32 @@ module.exports = function(grunt) {
     shell: {
       link: {
         command: 'npm link'
+      },
+      preRelease: {
+        command: function() {
+          var commit = [
+            'git add .',
+            'git commit -m "<%= app.defaultCommitMsg %>"'
+          ].join(' && ');
+          return commit;
+        }
+      },
+      release: {
+        command: 'grunt release:<%= app.releaseType %>'
+      }
+    },
+
+    // Release a new version to GitHub and npm
+    release: {
+      options: {
+        tagName: 'v<%= version %>',
+        tagMessage: 'Release v<%= version %>, build <%= app.buildNo %>, code name <%= app.codeName %>',
+        commitMessage: 'Release <%= version %>',
+        github: {
+          repo: 'billpatrianakos/conventional',
+          usernameVar: 'GITHUB_USER',
+          passwordVar: 'GITHUB_PASS'
+        }
       }
     }
   });
@@ -136,6 +161,14 @@ module.exports = function(grunt) {
     'clean:dist',
     'uglify:dist',
     'shell:link'
+    ]);
+
+  grunt.registerTask('release', [
+    'test',
+    'build',
+    'docco:docs',
+    'shell:preRelease',
+    'shell:release'
     ]);
 
   grunt.registerTask('document', [

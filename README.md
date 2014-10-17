@@ -1,6 +1,6 @@
 # Conventional Option Parser [![Build Status](https://travis-ci.org/billpatrianakos/conventional.svg)](https://travis-ci.org/billpatrianakos/conventional)
 
-> Parse options in Node CLI utilities using a convention over configuration approach
+> Node option parser for CLI apps using a convention over configuration approach
 
 ## Installation
 
@@ -10,20 +10,20 @@
 
 There are 3 steps in using this utility. You must require the library, pass it some options, and run it.
 
-```
-var parser = require('conventional');
+### Example
 
+```
 // Define your options
 var myOpts = {
-  commands: {
-    'example': {
-      shortcut: 'e',
-      desc: 'Example',
+  commands: { // Contains all valid commands - commands are never required
+    'example': { // This would result in `your-app example` being a runnable command
+      shortcut: 'e', // Shortcuts not implemented yet but you can include them anyway
+      desc: 'Runs an example command that does stuff',
       usage: 'example <flags>',
-      longDesc: 'An example function',
-      flags: {
-        'whatever': {
-          type: Boolean, 
+      longDesc: 'The example command allows you to do XYZ. Include ABC as a parameter to get 123 output...',
+      flags: { // Flags themselves are optional but the flags object MUST exist even if empty
+        'whatever': { // Commands and flags must be strings
+          type: Boolean, // The type of input to expect. Currently supports
           value: true,
           required: false,
           shortcut: '-w',
@@ -47,6 +47,13 @@ parser.run(myOpts);
 
 // Your code goes here now...
 ```
+
+* Contains all valid commands - commands are never required
+* This would result in `your-app example` being a runnable command
+* Shortcuts not implemented yet but you can include them anyway
+* Flags themselves are optional but the flags object MUST exist even if empty
+* Commands and flags must be strings
+* The type of input to expect. Currently supports
 
 Using conventional means you create an object to hold your commands and flags. All the options available are shown in the example. Once defined, you pass those options to `conventional.run`.
 

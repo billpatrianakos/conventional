@@ -294,15 +294,15 @@ or a standalone app with only flags</p>
             
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">switch</span>(opt.commands[command].flags[remaining[i]].type) {
           <span class="hljs-keyword">case</span> <span class="hljs-built_in">Boolean</span>:
-            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].value : parseBoolean(remaining[i + <span class="hljs-number">1</span>]);
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].val : parseBoolean(remaining[i + <span class="hljs-number">1</span>]);
             !_.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) &amp;&amp; remaining.splice((i + <span class="hljs-number">1</span>), <span class="hljs-number">1</span>);
             <span class="hljs-keyword">break</span>;
           <span class="hljs-keyword">case</span> <span class="hljs-built_in">String</span>:
-            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].value : remaining[i + <span class="hljs-number">1</span>];
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].val : remaining[i + <span class="hljs-number">1</span>];
             <span class="hljs-keyword">if</span> (!_.contains(validFlags, remaining[i + <span class="hljs-number">1</span>])) remaining.splice((i + <span class="hljs-number">1</span>), <span class="hljs-number">1</span>);
             <span class="hljs-keyword">break</span>;
           <span class="hljs-keyword">case</span> <span class="hljs-built_in">Number</span>:
-            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].value : <span class="hljs-built_in">parseInt</span>(remaining[i + <span class="hljs-number">1</span>]);
+            passedValues[remaining[i]] = _.contains(validFlags, remaining[i + <span class="hljs-number">1</span>]) ? opt.commands[command].flags[remaining[i]].val : <span class="hljs-built_in">parseInt</span>(remaining[i + <span class="hljs-number">1</span>]);
             <span class="hljs-keyword">if</span> (!_.contains(validFlags, remaining[i + <span class="hljs-number">1</span>])) remaining.splice((i + <span class="hljs-number">1</span>), <span class="hljs-number">1</span>);
             <span class="hljs-keyword">break</span>;
           <span class="hljs-keyword">case</span> <span class="hljs-built_in">Array</span>:
@@ -367,7 +367,7 @@ or a standalone app with only flags</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-built_in">eval</span>(<span class="hljs-string">'functions.'</span> + command)(passedValues, params); <span class="hljs-comment">// jshint ignore:line</span>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-built_in">eval</span>(<span class="hljs-string">'functions.'</span> + command)(opt, passedValues, params); <span class="hljs-comment">// jshint ignore:line</span>
 };</pre></div></div>
             
         </li>
