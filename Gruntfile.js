@@ -122,10 +122,7 @@ module.exports = function(grunt) {
         command: 'npm link'
       },
       preRelease: {
-        command: [
-          'git add .',
-          'git commit -m "<%= app.defaultCommitMsg %>"'
-        ].join('&&') 
+        command: 'git add . && git commit -m "<%= app.defaultCommitMsg %>"'
       },
       release: {
         command: 'grunt release:<%= app.releaseType %>'
