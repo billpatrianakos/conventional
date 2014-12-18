@@ -126,7 +126,8 @@ or a standalone app with only flags</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Parse everything as flags only</p>
+              <p>Parse everything as flags only
+TODO: Implement flag-only parsing</p>
 
             </div>
             
@@ -232,22 +233,7 @@ or a standalone app with only flags</p>
     <span class="hljs-keyword">if</span> (unmetRequirements.length &gt; <span class="hljs-number">0</span>) {
       say.error(<span class="hljs-string">'Required flags missing: '</span> + unmetRequirements.join(<span class="hljs-string">', '</span>));
       process.exit(<span class="hljs-number">1</span>);
-    }
-
-    <span class="hljs-comment">/**
-     * Passed values
-     * =============
-     *
-     * Example of the structure of
-     * the passedValues object.
-     *
-     *     var passed = {
-     *       flag: value
-     *     }
-     *
-     * We create an object which gets
-     * passed to the called function
-     */</span></pre></div></div>
+    }</pre></div></div>
             
         </li>
         
@@ -258,11 +244,9 @@ or a standalone app with only flags</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>Grab all the remaining flags and their values</p>
+              <h1 id="passed-values">Passed values</h1>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = remaining.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) {</pre></div></div>
             
         </li>
         
@@ -273,11 +257,18 @@ or a standalone app with only flags</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              <p>Run validation on matched flags</p>
+              <p>Example of the structure of
+the passedValues object.</p>
+<pre><code><span class="hljs-keyword">var</span> passed = {
+  flag: value
+}
+</code></pre><p>We create an object which gets
+passed to the called function</p>
+<p>Grab all the remaining flags and their values</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (_.contains(validFlags, remaining[i])) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; remaining.length; i++) {</pre></div></div>
             
         </li>
         
@@ -287,6 +278,21 @@ or a standalone app with only flags</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Run validation on matched flags</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (_.contains(validFlags, remaining[i])) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>Check its type</p>
 
@@ -311,11 +317,11 @@ or a standalone app with only flags</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>Loop over the rest, stop at the next flag</p>
 
@@ -330,11 +336,11 @@ or a standalone app with only flags</p>
         </li>
         
         
-        <li id="section-17">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>Remove  each of these values before moving on or increment <code>i</code>?</p>
 
@@ -357,11 +363,11 @@ or a standalone app with only flags</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>Invoke the command as a function</p>
 
@@ -373,11 +379,11 @@ or a standalone app with only flags</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>parseBoolean</p>
 <p>Takes ‘true’/‘false’ as a string and returns

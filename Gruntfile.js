@@ -132,8 +132,9 @@ module.exports = function(grunt) {
     // Release a new version to GitHub and npm
     release: {
       options: {
+        push: false,
         tagName: 'v<%= version %>',
-        tagMessage: 'Release v<%= version %>, build <%= app.buildNo %>, code name <%= app.codeName %>',
+        tagMessage: 'Release v<%= version %>',
         commitMessage: 'Release <%= version %>',
         github: {
           repo: 'billpatrianakos/conventional',
@@ -157,11 +158,11 @@ module.exports = function(grunt) {
     'shell:link'
     ]);
 
-  grunt.registerTask('release', [
+  grunt.registerTask('dorelease', [
     'test',
     'build',
     'docco:docs',
-    'shell:preRelease',
+    //'shell:preRelease',
     'shell:release'
     ]);
 
